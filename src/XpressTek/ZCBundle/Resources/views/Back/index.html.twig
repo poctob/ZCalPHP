@@ -1,0 +1,88 @@
+{# empty Twig template #}
+{% extends 'XpressTekZCBundle:Back:layout.html.twig' %}
+
+{% block title %}
+    ZC Admin
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/calendar_admin.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+
+    <div id="calendarsDataTable"></div> 
+    <div id="actionButtons">
+
+        <button id="calendarAdd" type="button">New</button>  
+        <button id="calendarEdit" type="button">Edit</button>  
+        <button id="calendarDelete" type="button">Delete</button>
+        <button id="calendarManage" type="button">Manage</button>
+    </div>
+
+
+
+    <div id='calendarAddDialog' title="Add Calendar">
+
+        {{ form_start(calendar_form, {'attr': {'id': 'calendarAddForm'}}) }}
+        {{ form_errors(calendar_form) }}
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        {{ form_label(calendar_form.name) }}
+                        {{ form_errors(calendar_form.name) }}
+                    </td>
+                    <td>
+                        {{ form_widget (calendar_form.name, {'id':'calendarNameText'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(calendar_form.startDate) }}
+                        {{ form_errors(calendar_form.startDate) }}
+                    </td>
+                    <td>
+                        {{ form_widget (calendar_form.startDate, {'id':'calendarStartDate'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(calendar_form.endDate) }}
+                        {{ form_errors(calendar_form.endDate) }}
+                    </td>
+                    <td>
+                        {{ form_widget (calendar_form.endDate, {'id':'calendarEndDate'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(calendar_form.isActive) }}
+                        {{ form_errors(calendar_form.isActive) }}
+                    </td>
+                    <td>
+                        {{ form_widget (calendar_form.isActive, {'id':'calendarActive'}) }}
+                    </td>
+                </tr>
+            </table>
+        </div> 
+        <div>
+            {{ form_widget (calendar_form.save, {'id':'calendarSaveButton'}) }}
+            <button id="calendarCancelButton" type="button">Cancel</button> 
+        </div> 
+
+        {{ form_end(calendar_form) }}
+
+    </div>
+        
+        <div id="dialog-confirm" title="Delete Item?">
+            <p>
+                <span class="ui-icon ui-icon-alert" 
+                      style="float:left; margin:0 7px 20px 0;">
+                          
+                </span>This item will be permanently deleted and cannot be recovered. Are you sure?</p>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,150 @@
+{# empty Twig template #}
+{% extends 'XpressTekZCBundle:Back:layout.html.twig' %}
+
+{% block title %}
+    ZC Admin
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/event_admin.js') }}"></script>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+    <select id="calendarsDropDown" name="calendarsSelect">
+        <option value="0">---Select Calendar Name---</option>
+    </select>
+    <script>
+      var calendar_id = {{calendar_id}};
+    </script>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div id="actionButtons">
+
+        <button id="eventAdd" type="button">New</button> 
+    </div>
+
+    <div id='eventAddDialog' title="Add Event">
+        {{ form_start(event_form, {'attr': {'id': 'eventAddForm'}}) }}
+        {{ form_errors(event_form) }}
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        {{ form_label(event_form.title) }}
+                        {{ form_errors(event_form.title) }}
+                    </td>
+                    <td>
+                        {{ form_widget (event_form.title, {'id':'eventTitleText'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(event_form.validFrom) }}
+                        {{ form_errors(event_form.validFrom) }}
+                    </td>
+                    <td>
+                        {{ form_widget (event_form.validFrom, {'id':'eventValidFrom'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(event_form.validTo) }}
+                        {{ form_errors(event_form.validTo) }}
+                    </td>
+                    <td>
+                        {{ form_widget (event_form.validTo, {'id':'eventValidTo'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(event_form.startTime) }}
+                        {{ form_errors(event_form.startTime) }}
+                    </td>
+                    <td>
+                        {{ form_widget (event_form.startTime, {'id':'eventStartTime'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(event_form.endTime) }}
+                        {{ form_errors(event_form.endTime) }}
+                    </td>
+                    <td>
+                        {{ form_widget (event_form.endTime, {'id':'eventEndTime'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form_label(event_form.isAllDay) }}
+                        {{ form_errors(event_form.isAllDay) }}
+                    </td>
+                    <td>
+                        {{ form_widget (event_form.isAllDay, {'id':'eventIsAllDay'}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Repeat
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Every <br/> Day</td>
+                                <td>Mon</td>
+                                <td>Tue</td>
+                                <td>Wed</td>
+                                <td>Thu</td>
+                                <td>Fri</td>
+                                <td>Sat</td>
+                                <td>Sun</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{ form_widget (event_form.everyDay, {'id':'eventCheckEveryDay'}) }}
+                                </td>
+                                <td>
+                                    {{ form_widget (event_form.Monday, {'id':'eventCheckMonday'}) }}
+                                </td>
+                                <td>
+                                    {{ form_widget (event_form.Tuesday, {'id':'eventCheckTuesday'}) }}
+                                </td>
+                                <td>
+                                    {{ form_widget (event_form.Wednesday, {'id':'eventCheckWednesday'}) }}
+                                </td>
+                                <td>
+                                    {{ form_widget (event_form.Thursday, {'id':'eventCheckThursday'}) }}
+                                </td>
+                                <td>
+                                    {{ form_widget (event_form.Friday, {'id':'eventCheckFriday'}) }}
+                                </td>
+                                <td>
+                                    {{ form_widget (event_form.Saturday, {'id':'eventCheckSaturday'}) }}
+                                </td>
+                                <td>
+                                    {{ form_widget (event_form.Sunday, {'id':'eventCheckSunday'}) }}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div> 
+        <div>
+            {{ form_widget (event_form.save, {'id':'eventSaveButton'}) }}
+            <button id="eventCancelButton" type="button">Cancel</button> 
+        </div> 
+
+        {{ form_end(event_form) }}
+    </div>
+
+{% endblock %}
+
+

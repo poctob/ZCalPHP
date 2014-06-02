@@ -1,0 +1,25 @@
+{# empty Twig template #}
+{% extends 'XpressTekZCBundle:Front:layout.html.twig' %}
+
+{% block title %}
+    ZC2
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('fullcalendar/fullcalendar/fullcalendar.css')}}" rel="stylesheet" />
+    <link href="{{ asset('fullcalendar/fullcalendar/fullcalendar.print.css')}}" rel="stylesheet" media="print"/>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+     <script src="{{ asset('fullcalendar/lib/jquery.min.js') }}"></script>
+     <script src="{{ asset('fullcalendar/lib/jquery-ui.custom.min.js') }}"></script>
+     <script src="{{ asset('fullcalendar/fullcalendar/fullcalendar.min.js') }}"></script>
+     <script src="{{ asset('js/calendar_front.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div id='calendar'></div>
+{% endblock %}

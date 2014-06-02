@@ -1,0 +1,36 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Application Title{% endblock %}</title>
+        
+         {% block stylesheets %}
+            <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+        {% endblock %}
+    </head>
+     <body>
+         {% block javascripts %}
+            <script src="{{ asset('js/main.js') }}"></script>
+        {% endblock %}
+        
+        <div id="header">
+            {% block menu %}{% endblock %}
+        </div>
+        
+        <div id="sidebar">
+            {% block sidebar %}
+                <ul>
+                      <li><a href="/">Home</a></li>
+                </ul>
+            {% endblock %}
+        </div>
+
+        <div id="content">
+            {% block body %}{% endblock %}
+        </div>
+        
+         <div id="footer">
+            {% block footer %}{% endblock %}
+        </div>
+</html>

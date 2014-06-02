@@ -1,0 +1,39 @@
+zc:
+    pattern:  /hello/
+    defaults: { _controller: XpressTekZCBundle:Front:index }
+    
+admin:    
+    pattern:  /admin/
+    defaults: { _controller: XpressTekZCBundle:Admin:index } 
+ 
+list_calendars:
+    pattern:  /admin/calendar/
+    defaults: { _controller: XpressTekZCBundle:Calendar:list }
+    
+new_calendar:
+    pattern:  /admin/calendar/new/
+    defaults: { _controller: XpressTekZCBundle:Calendar:new }
+    
+edit_calendar:
+    pattern:  /admin/calendar/edit/{id}
+    defaults: { _controller: XpressTekZCBundle:Calendar:edit }
+    
+delete_calendar:
+    pattern:  /admin/calendar/delete/{id}
+    defaults: { _controller: XpressTekZCBundle:Calendar:delete }
+    
+listJson_calendar:
+    pattern:  /admin/calendar/listJson
+    defaults: { _controller: XpressTekZCBundle:Calendar:listJson }
+    
+list_events:
+    pattern:  /admin/event/list/{calendar_id}
+    defaults: { _controller: XpressTekZCBundle:Event:list }
+    
+listJson_events:
+    pattern:  /admin/event/listJson
+    defaults: { _controller: XpressTekZCBundle:Event:listJson }
+    
+new_event:
+    pattern:  /admin/event/new/
+    defaults: { _controller: XpressTekZCBundle:Event:new }

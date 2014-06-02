@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 28, 2014, 3:46:23 PM
+    Author     : Alex Pavlunenko <alexp at xpresstek.net>
+*/
+
+body {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+
+#sidebar{
+    float: left;
+    width: 15%;
+}
+
+#content{
+    margin: 0;
+    margin-left: 3%;
+    float: right;
+    width: 80%;
+}
+
+#calendarForm{
+    text-align: left;
+}
+
+#calendar div{
+    padding-bottom: 10px;
+}
+
+#calendar label{
+    padding-right: 10px;
+    color: green;
+}
+
+#actionButtons
+{
+    padding-top: 10px;
+    float: left;
+}
+
+#calendarAddDialog{
+    text-align: left;
+}
+
+#calendarsDropDown option{
+    padding-right: 5px;
+}
+
+#eventAddDialog{
+    text-align: left;
+    width: 400px !important;
+}

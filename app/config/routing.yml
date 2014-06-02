@@ -1,0 +1,16 @@
+#/app/config/routing.yml
+xpress_tek_zc:
+    resource: "@XpressTekZCBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+#xpress_tek_zc_rest:
+#    type: rest
+#    resource: "@XpressTekZCBundle/Resources/config/routing.yml"
+
+contact:
+    path:       /contact
+    defaults:   {_controller: AcmeDemoBundle:Main:contact }
+    
+
+
+    
