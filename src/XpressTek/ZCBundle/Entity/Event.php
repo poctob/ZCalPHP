@@ -25,7 +25,7 @@ class Event {
         "Friday" => 0x10,
         "Saturday" => 0x20,
         "Sunday" => 0x40,
-        "Every Day" => 0x7f
+        "EveryDay" => 0x7f
     );
 
     /**
@@ -40,10 +40,9 @@ class Event {
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Calendar", inversedBy="events")
-     * @ORM\JoinColumn(name="calendar_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Calendar", inversedBy="events")    
      */
-    protected $calendarId;
+    private $calendar;
 
     /**
      * @var string
@@ -93,6 +92,18 @@ class Event {
      * @ORM\Column(name="weekday_mask", type="integer")
      */
     private $weekdayMask;
+    
+    public function cloneEntity(Event $source)
+    {
+        $this->calendar = $source->calendar;
+        $this->title = $source->title;
+        $this->validFrom = $source->validFrom;
+        $this->validTo = $source->validTo;
+        $this->startTime = $source->startTime;
+        $this->endTime = $source->endTime;
+        $this->isAllDay = $source->isAllDay;
+        $this->weekdayMask = $source->weekdayMask;
+    }
 
     /**
      * Get id
@@ -103,26 +114,6 @@ class Event {
         return $this->id;
     }
 
-    /**
-     * Set calendarId
-     *
-     * @param integer $calendarId
-     * @return Event
-     */
-    public function setCalendarId($calendarId) {
-        $this->calendarId = $calendarId;
-
-        return $this;
-    }
-
-    /**
-     * Get calendarId
-     *
-     * @return integer 
-     */
-    public function getCalendarId() {
-        return $this->calendarId;
-    }
 
     /**
      * Set title
@@ -260,8 +251,8 @@ class Event {
 
         if (is_array($weekdayMask)) {
             $mask = 0;
-            foreach ($weekdayMask as $day) {
-                if (in_array($day, $this->weekDays)) {
+            foreach ($weekdayMask as $day => $value) {
+                if (in_array($day, $this->weekDays) && $value==1) {
                     $mask = $mask | $this->weekDays[$day];
                 }
             }
@@ -297,6 +288,16 @@ class Event {
             }
         }
         return $retval;
+    }
+    
+    public function getWeekDayKeys()
+    {
+        return $this->weekDays;
+    }
+    
+    public function setCalendar($calendar)
+    {
+        $this->calendar=$calendar;
     }
 
 }

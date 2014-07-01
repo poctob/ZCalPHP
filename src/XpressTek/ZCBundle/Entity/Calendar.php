@@ -24,7 +24,7 @@ class Calendar
     private $id;
     
      /**
-     * @ORM\OneToMany(targetEntity="Event", mappedBy="calendarId")
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="calendar")
      */
     protected $events;
     

@@ -1,0 +1,16 @@
+{% extends 'XpressTekZCBundle:Back:layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/event_admin.js') }}"></script>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+    <select id="calendarsDropDown" name="calendarsSelect">
+        <option value="0">---Select Calendar Name---</option>
+    </select>
+    <script>
+      var calendar_id = {{calendar_id}};
+    </script>
+{% endblock %}

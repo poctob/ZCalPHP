@@ -72,7 +72,7 @@ function applyDataTableUI()
             {field: 'name', headerText: 'Name', sortable: true},
             {field: 'start_date', headerText: 'Start Date', sortable: true},
             {field: 'end_date', headerText: 'End Date', sortable: true},
-            {field: 'is_active', headerText: 'Active?', sortable: true},
+            {field: 'is_active', headerText: 'Active?', sortable: true}
         ],
         datasource: function(callback) {
             $.ajax({

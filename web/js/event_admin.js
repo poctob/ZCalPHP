@@ -6,18 +6,18 @@
 
 $(function() {
 
+    applyDataTableUI();
+    applyEditDialogUI();
+    
     $.getJSON('../../calendar/listJson', populateCalendarDropDown);
-
+    
+    
     $('#eventAdd').puibutton({
         icon: 'ui-icon-circle-plus',
         click: function() {
-            //       newEventAction();
-            $('#eventAddDialog').puidialog('show');
-
+        window.location.href='../new/'+calendar_id;
         }
-    });
-
-    applyEditDialogUI();
+    });    
 });
 
 function populateCalendarDropDown(data)
@@ -34,20 +34,60 @@ function populateCalendarDropDown(data)
              $('#calendarsDropDown').puidropdown('selectValue', calendar_id);
         }
     }
+    
+    $('#calendarsDropDown').puidropdown({
+        change: function(event){
+            var url=$('#calendarsDropDown').puidropdown('getSelectedValue');
+            window.location.href=url;
+        }
+    });
+    
+}
+
+function applyDataTableUI()
+{
+    $('#eventsDataTable').puidatatable({
+        caption: "Events",
+        paginator: {
+            rows: 5
+        },
+        columns: [
+            {field: 'title', headerText: 'Title', sortable: true},
+            {field: 'valid_from', headerText: 'Valid From', sortable: true},
+            {field: 'valid_to', headerText: 'Valid To', sortable: true},
+            {field: 'start_time', headerText: 'Start Time', sortable: true},
+            {field: 'end_time', headerText: 'End Time', sortable: true},
+            {field: 'is_all_day', headerText: 'All Day', sortable: true}
+        ],
+        datasource: function(callback) {
+            $.ajax({
+                type: "GET",
+                url: '../listJson/'+calendar_id,
+                dataType: "json",
+                context: this,
+                success: function(response) {
+                    callback.call(this, response);
+                }
+            });
+        },
+        selectionMode: 'multiple',
+        rowSelect: function(event, data) {
+            selectedItem = data.id;
+          //  enableCalendarEditButtons();
+            $('#messages').puigrowl('show', [{severity: 'info', summary: 'Row Selected', detail: (data.id)}]);
+        },
+        rowUnselect: function(event, data) {
+            selectedItem = -1;
+         //   disableCalendarEditButtons();
+            $('#messages').puigrowl('show', [{severity: 'info', summary: 'Row Unselected', detail: (data.id)}]);
+        }
+    });
 }
 
 
-function applyEditDialogUI()
+function    applyEditDialogUI()
 {
-    $('#eventAddDialog').puidialog({
-        showEffect: 'fade',
-        hideEffect: 'fade',
-        minimizable: true,
-        maximizable: true,
-        modal: true
-    });
-
-    $('#eventNameText').puiinputtext();
+    $('#eventTitleText').puiinputtext();
     $('#eventIsAllDay').puicheckbox();
     $('#eventCheckEveryDay').puicheckbox();
     $('#eventCheckMonday').puicheckbox();
@@ -63,28 +103,21 @@ function applyEditDialogUI()
     });
 
     $('#eventCancelButton').puibutton({
-        icon: 'ui-icon-close',
-        click: function() {
-            $('#eventAddDialog').puidialog('hide');
-        }
-    });
-
-    $('#eventAddForm').submit(function(event) {
-        $('#eventAddDialog').puidialog('hide');
+        icon: 'ui-icon-close'
     });
 }
 
 function newEventAction()
 {
     $.ajax({
-        url: '../new/',
+        url: '../new/'+calendar_id,
         cache: false
     })
             .done(function(html)
             {
                 var new_data = $('#eventAddForm', html);
                 $('#eventAddForm').replaceWith(new_data);
-                applyEditDialogUI();
+                   applyEditDialogUI();
             });
 }
 

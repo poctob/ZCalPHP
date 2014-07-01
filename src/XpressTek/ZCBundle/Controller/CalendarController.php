@@ -60,7 +60,8 @@ class CalendarController extends Controller {
     private function getTemplate(Calendar $calendar) {
         $calendar_form = $this->createForm('calendar', $calendar);
         $template = $this->renderView
-                ('XpressTekZCBundle:Back:index.html.twig', array('calendar_form' => $calendar_form->createView()));
+                ('XpressTekZCBundle:Back:index.html.twig', 
+                array('calendar_form' => $calendar_form->createView()));
 
         return $template;
     }
@@ -104,7 +105,7 @@ class CalendarController extends Controller {
     }
 
     public function newAction() {
-        $calendar = new Calendar();
+        $calendar = new Calendar();        
         return new Response($this->getTemplate($calendar));
     }
 
