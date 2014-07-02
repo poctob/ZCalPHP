@@ -37,3 +37,15 @@ listJson_events:
 new_event:
     pattern:  /admin/event/new/{calendar_id}
     defaults: { _controller: XpressTekZCBundle:Event:new }
+    
+view_event:
+    pattern:  /admin/event/view/{event_id}
+    defaults: { _controller: XpressTekZCBundle:Event:view }
+    
+edit_event:
+    pattern:  /admin/event/edit/{event_id}
+    defaults: { _controller: XpressTekZCBundle:Event:edit }
+    
+delete_event:
+    pattern:  /admin/event/delete/{event_id}
+    defaults: { _controller: XpressTekZCBundle:Event:delete }

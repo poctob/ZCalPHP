@@ -40,10 +40,18 @@
     </div>
 
     <div id="content">
-    {% block body %}{% endblock %}
-</div>
+        {% block body %}
+            <div id="delete-dialog-confirm" title="Delete Item?">
+                <p>
+                    <span class="ui-icon ui-icon-alert" 
+                          style="float:left; margin:0 7px 20px 0;">
 
-<div id="footer">
-{% block footer %}{% endblock %}
+                    </span>This item will be permanently deleted and cannot be recovered. Are you sure?</p>
+            </div>
+        {% endblock %}
+    </div>
+
+    <div id="footer">
+    {% block footer %}{% endblock %}
 </div>
 </html>

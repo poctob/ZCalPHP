@@ -1,0 +1,45 @@
+{% extends 'XpressTekZCBundle:Back:layout.events.html.twig' %}
+
+{% block title %}
+    ZC New Event
+{% endblock %} 
+
+{% block body %}
+    {{ parent() }}
+    <div id='eventViewSection' title="Event Details">
+        <div class="roomyDiv">
+            Calendar: {{ calendar.name }}
+        </div>
+        <div class="roomyDiv">
+            Title: {{ event.title }}
+        </div>
+        <div class="roomyDiv">
+            Valid From: {{ event.validFrom|date('m/d/Y') }}
+        </div>
+        <div class="roomyDiv">
+            Valid To: {{ event.validTo|date('m/d/Y')}}
+        </div>
+        {% if event.isAllDay %}
+            <div class="roomyDiv">
+                All day: Yes
+            </div>        
+        {% else %}
+            <div class="roomyDiv">
+                Start: {{ event.startTime|date('h:i A') }}
+            </div>
+            <div class="roomyDiv">
+                End: {{ event.endTime|date('h:i A')}}
+            </div>
+        {% endif %}
+        <div class="roomyDiv">
+            Active for these days: <ul>
+             {% for day in event.weekdayMask %}
+                <li>{{ day }}</li>
+             {% endfor %}
+             </ul>
+            
+        </div>
+    {% endblock %}
+
+    {% block sidebar %}
+    {% endblock %}

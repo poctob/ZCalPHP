@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var selectedItem = -1;
 
 $(function() {
 
@@ -29,7 +28,7 @@ $(function() {
     $('#calendarDelete').puibutton({
         icon: 'ui-icon-trash',
         click: function() {
-             $( "#dialog-confirm" ).puidialog('show');           
+             $( "#delete-dialog-confirm" ).puidialog('show');           
         }
     });
     
@@ -40,10 +39,9 @@ $(function() {
         }
     });
 
-    $('#messages').puigrowl();
-
     applyEditDialogUI();
     disableCalendarEditButtons();
+    
 });
 
 
@@ -139,19 +137,6 @@ function editCalendarAction()
                 var new_data = $('#calendarAddForm', html);
                 $('#calendarAddForm').replaceWith(new_data);
                 applyEditDialogUI();
-            });
-}
-
-function deleteCalendarAction()
-{
-    $('#dialog-confirm').puidialog('hide');  
-    $.ajax({
-        url: 'delete/' + selectedItem.toString(),
-        cache: false
-    })
-            .done(function(html)
-            {
-               location.reload();
             });
 }
 

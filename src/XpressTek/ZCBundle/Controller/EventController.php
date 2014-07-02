@@ -69,6 +69,20 @@ class EventController extends Controller {
                         ('XpressTekZCBundle:Back:event_new.html.twig', array('event_form' => $event_form->createView(),
                     'calendar_id' => $calendar_id));
     }
+    
+     /**
+     * Pulls event from the database and displays it
+     * @param Event $event_id Id of the event.
+     */
+    public function viewAction($event_id) {
+        $em = $this->getDoctrine()->getManager();        
+        $event = $em->getRepository('XpressTekZCBundle:Event')
+                            ->find($event_id);        
+      
+        return $this->render
+                        ('XpressTekZCBundle:Back:event_view.html.twig',
+                array('event' => $event, 'calendar' => $event->getCalendar()));
+    }
 
     private function processRequest($calendar_id, Request $request) {
         if (isset($request)) {

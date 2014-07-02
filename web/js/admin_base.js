@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+var selectedItem = -1;
 
 $(function() {
-    $( "#dialog-confirm" ).puidialog({
+    $('#messages').puigrowl();
+    $( "#delete-dialog-confirm" ).puidialog({
          buttons: [{  
                 text: 'Yes',  
                 icon: 'ui-icon-check',  
                 click: function() {  
-                    $('#dialog-confirm').puidialog('hide');  
+                    deleteAction();
                 }  
             },  
             {  
@@ -22,7 +23,26 @@ $(function() {
                 }  
             }  
         ]  
-    }
-            
+    }            
             );
 });
+
+function deleteAction()
+{
+    $('#delete-dialog-confirm').puidialog('hide');  
+    $.ajax({
+        url: '../delete/' + selectedItem.toString(),
+        cache: false
+    })
+            .done(function()
+            {
+               location.reload();
+               $('#messages').puigrowl('show',
+               [{severity: 'info', summary: 'Success', detail: 'Item deleted!'}]); 
+            })
+             .error(function()
+            {
+               $('#messages').puigrowl('show',
+               [{severity: 'error', summary: 'Error', detail: 'Failed to delete item!'}]); 
+            });
+}

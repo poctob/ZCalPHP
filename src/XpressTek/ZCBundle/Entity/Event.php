@@ -299,5 +299,10 @@ class Event {
     {
         $this->calendar=$calendar;
     }
+    
+    public function getCalendar()
+    {
+        return $this->calendar;
+    }
 
 }

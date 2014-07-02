@@ -58,3 +58,18 @@ body {
     text-align: left;
     width: 400px !important;
 }
+
+div .floatLeft
+{
+    float: left;
+}
+
+#eventViewSection
+{
+    text-align: left;
+}
+
+div .roomyDiv
+{
+    padding: 5px;
+}

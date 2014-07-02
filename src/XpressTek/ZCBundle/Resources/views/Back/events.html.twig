@@ -7,10 +7,14 @@
 
 {% block body %}
     {{ parent() }}
-    
+    <div class="floatLeft">
+    <button id="eventAdd" type="button">New</button> 
+    </div>
     <div id="eventsDataTable"></div>
-    <div id="actionButtons">
-        <button id="eventAdd" type="button">New</button> 
+    <div id="actionButtons">        
+        <button id="eventEdit" type="button">Edit</button> 
+        <button id="eventView" type="button">View</button> 
+        <button id="eventDelete" type="button">Delete</button> 
     </div>
 
 {% endblock %}

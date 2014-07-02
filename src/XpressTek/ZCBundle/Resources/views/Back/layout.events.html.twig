@@ -10,7 +10,9 @@
     <select id="calendarsDropDown" name="calendarsSelect">
         <option value="0">---Select Calendar Name---</option>
     </select>
-    <script>
-      var calendar_id = {{calendar_id}};
-    </script>
+    {% if calendar_id is defined %}
+        <script>
+            var calendar_id = {{calendar_id}};
+        </script>
+    {% endif %}
 {% endblock %}

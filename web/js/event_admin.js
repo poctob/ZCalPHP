@@ -18,6 +18,31 @@ $(function() {
         window.location.href='../new/'+calendar_id;
         }
     });    
+    
+    $('#eventEdit').puibutton({
+        icon: 'ui-icon-pencil',
+        click: function() {
+        window.location.href='../edit/'+selectedItem;
+        }
+    });    
+    
+    $('#eventView').puibutton({
+        icon: 'ui-icon-search',
+        click: function() {
+        window.location.href='../view/'+selectedItem;
+        }
+    });    
+    
+    $('#eventDelete').puibutton({
+        icon: 'ui-icon-trash',
+        click: function() {
+             $( "#delete-dialog-confirm" ).puidialog('show');           
+        }
+    });    
+    
+     disableCalendarEditButtons();
+     
+     $('#eventViewSection').puipanel();  
 });
 
 function populateCalendarDropDown(data)
@@ -29,7 +54,7 @@ function populateCalendarDropDown(data)
         $('#calendarsDropDown').puidropdown
                 ('addOption', calendar['name'], calendar['id']);
                 
-        if(calendar_id)
+        if(typeof calendar_id !== 'undefined')
         {
              $('#calendarsDropDown').puidropdown('selectValue', calendar_id);
         }
@@ -73,19 +98,32 @@ function applyDataTableUI()
         selectionMode: 'multiple',
         rowSelect: function(event, data) {
             selectedItem = data.id;
-          //  enableCalendarEditButtons();
+            enableCalendarEditButtons();
             $('#messages').puigrowl('show', [{severity: 'info', summary: 'Row Selected', detail: (data.id)}]);
         },
         rowUnselect: function(event, data) {
             selectedItem = -1;
-         //   disableCalendarEditButtons();
+            disableCalendarEditButtons();
             $('#messages').puigrowl('show', [{severity: 'info', summary: 'Row Unselected', detail: (data.id)}]);
         }
     });
 }
 
+function disableCalendarEditButtons()
+{
+    $('#eventEdit').puibutton('disable');
+    $('#eventView').puibutton('disable');
+    $('#eventDelete').puibutton('disable');
+}
 
-function    applyEditDialogUI()
+function enableCalendarEditButtons()
+{
+    $('#eventEdit').puibutton('enable');
+    $('#eventView').puibutton('enable');
+    $('#eventDelete').puibutton('enable');
+}
+
+function applyEditDialogUI()
 {
     $('#eventTitleText').puiinputtext();
     $('#eventIsAllDay').puicheckbox();
@@ -120,6 +158,9 @@ function newEventAction()
                    applyEditDialogUI();
             });
 }
+
+
+
 
 
 
