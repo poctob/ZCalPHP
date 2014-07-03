@@ -1,7 +1,7 @@
 {% extends 'XpressTekZCBundle:Back:layout.events.html.twig' %}
 
 {% block title %}
-    ZC New Event
+    ZC Edit Event
 {% endblock %} 
 
 {% block sidebar %}
@@ -9,11 +9,11 @@
     <div class="roomyDiv">
         <button id="backToEventList" type="button">Back to Events List</button>  
     </div>
- {% endblock %} 
+{% endblock %} 
 
 {% block body %}
-{{ parent() }}
-<div id='eventAddSection' title="Add Event">
+    {{ parent() }}
+    <div id='eventAddSection' title="Edit Event">
         {{ form_start(event_form, {'attr': {'id': 'eventAddForm'}}) }}
         {{ form_errors(event_form) }}
         <div>
@@ -90,13 +90,14 @@
                             </tr>
                             <tr>
                                 <td>
-                                    {{ form_widget (event_form.EveryDay, {'id':'eventCheckEveryDay'}) }}
+                                    {{ form_widget (event_form.EveryDay, {'id':'eventCheckEveryDay'}) }}                                  
                                 </td>
                                 <td>
                                     {{ form_widget (event_form.Monday, {'id':'eventCheckMonday'}) }}
                                 </td>
                                 <td>
                                     {{ form_widget (event_form.Tuesday, {'id':'eventCheckTuesday'}) }}
+
                                 </td>
                                 <td>
                                     {{ form_widget (event_form.Wednesday, {'id':'eventCheckWednesday'}) }}
@@ -128,4 +129,34 @@
 
         {{ form_end(event_form) }}
     </div>
+    <script>
+        {% if event.isOnMonday %}
+            var isOnMonday = true;
+        {% endif %}
+        {% if event.isOnTuesday %}
+            var isOnTuesday = true;
+        {% endif %}
+        {% if event.isOnWednesday %}
+            var isOnWednesday = true;
+        {% endif %}
+        {% if event.isOnThursday %}
+            var isOnThursday = true;
+        {% endif %}
+        {% if event.isOnFriday %}
+            var isOnFriday = true;
+        {% endif %}
+        {% if event.isOnSaturday %}
+            var isOnSaturday = true;
+        {% endif %}
+        {% if event.isOnSunday %}
+            var isOnSunday = true;
+        {% endif %}
+        {% if event.isEveryDay %}
+            var isEveryDay = true;
+        {% endif %}
+        {% if event.isAllDay %}
+            var isAllDay = true;
+
+        {% endif %}
+    </script>        
 {% endblock %}

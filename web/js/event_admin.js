@@ -8,41 +8,48 @@ $(function() {
 
     applyDataTableUI();
     applyEditDialogUI();
-    
+
     $.getJSON('../../calendar/listJson', populateCalendarDropDown);
-    
-    
+
+
     $('#eventAdd').puibutton({
         icon: 'ui-icon-circle-plus',
         click: function() {
-        window.location.href='../new/'+calendar_id;
+            window.location.href = '../new/' + calendar_id;
         }
-    });    
-    
+    });
+
     $('#eventEdit').puibutton({
         icon: 'ui-icon-pencil',
         click: function() {
-        window.location.href='../edit/'+selectedItem;
+            window.location.href = '../edit/' + selectedItem;
         }
-    });    
-    
+    });
+
     $('#eventView').puibutton({
         icon: 'ui-icon-search',
         click: function() {
-        window.location.href='../view/'+selectedItem;
+            window.location.href = '../view/' + selectedItem;
         }
-    });    
-    
+    });
+
     $('#eventDelete').puibutton({
         icon: 'ui-icon-trash',
         click: function() {
-             $( "#delete-dialog-confirm" ).puidialog('show');           
+            $("#delete-dialog-confirm").puidialog('show');
         }
-    });    
-    
-     disableCalendarEditButtons();
-     
-     $('#eventViewSection').puipanel();  
+    });
+
+    disableCalendarEditButtons();
+
+    $('#eventViewSection').puipanel();
+
+    $('#backToEventList').puibutton({
+        icon: 'ui-icon-circle-arrow-w',
+        click: function() {
+            window.location.href = '../list/' + calendar_id;
+        }
+    });
 });
 
 function populateCalendarDropDown(data)
@@ -53,20 +60,20 @@ function populateCalendarDropDown(data)
         var calendar = data[key];
         $('#calendarsDropDown').puidropdown
                 ('addOption', calendar['name'], calendar['id']);
-                
-        if(typeof calendar_id !== 'undefined')
+
+        if (typeof calendar_id !== 'undefined')
         {
-             $('#calendarsDropDown').puidropdown('selectValue', calendar_id);
+            $('#calendarsDropDown').puidropdown('selectValue', calendar_id);
         }
     }
-    
+
     $('#calendarsDropDown').puidropdown({
-        change: function(event){
-            var url=$('#calendarsDropDown').puidropdown('getSelectedValue');
-            window.location.href=url;
+        change: function(event) {
+            var url = $('#calendarsDropDown').puidropdown('getSelectedValue');
+            window.location.href = url;
         }
     });
-    
+
 }
 
 function applyDataTableUI()
@@ -87,7 +94,7 @@ function applyDataTableUI()
         datasource: function(callback) {
             $.ajax({
                 type: "GET",
-                url: '../listJson/'+calendar_id,
+                url: '../listJson/' + calendar_id,
                 dataType: "json",
                 context: this,
                 success: function(response) {
@@ -127,14 +134,58 @@ function applyEditDialogUI()
 {
     $('#eventTitleText').puiinputtext();
     $('#eventIsAllDay').puicheckbox();
+    if (typeof isAllDay !== 'undefined' && isAllDay)
+    {
+        $('#isAllDay').puicheckbox('check');
+    }
+
     $('#eventCheckEveryDay').puicheckbox();
+    if (typeof isEveryDay !== 'undefined' && isEveryDay)
+    {
+        $('#eventCheckEveryDay').puicheckbox('check');
+    }
+
     $('#eventCheckMonday').puicheckbox();
+    if (typeof isOnMonday !== 'undefined' && isOnMonday)
+    {
+        $('#eventCheckMonday').puicheckbox('check');
+    }
+
     $('#eventCheckTuesday').puicheckbox();
+    if (typeof isOnTuesday !== 'undefined' && isOnTuesday)
+    {
+        $('#eventCheckTuesday').puicheckbox('check');
+    }
+
     $('#eventCheckWednesday').puicheckbox();
+    if (typeof isOnWednesday !== 'undefined' && isOnWednesday)
+    {
+        $('#eventCheckWednesday').puicheckbox('check');
+    }
+
     $('#eventCheckThursday').puicheckbox();
+    if (typeof isOnThursday !== 'undefined' && isOnThursday)
+    {
+        $('#eventCheckThursday').puicheckbox('check');
+    }
+
     $('#eventCheckFriday').puicheckbox();
+    if (typeof isOnFriday !== 'undefined' && isOnFriday)
+    {
+        $('#eventCheckFriday').puicheckbox('check');
+    }
+
     $('#eventCheckSaturday').puicheckbox();
+    if (typeof isOnSaturday !== 'undefined' && isOnSaturday)
+    {
+        $('#eventCheckSaturday').puicheckbox('check');
+    }
+    
     $('#eventCheckSunday').puicheckbox();
+    if (typeof isOnSunday !== 'undefined' && isOnSunday)
+    {
+        $('#eventCheckSunday').puicheckbox('check');
+    }
 
     $('#eventSaveButton').puibutton({
         icon: 'ui-icon-check'
@@ -148,14 +199,14 @@ function applyEditDialogUI()
 function newEventAction()
 {
     $.ajax({
-        url: '../new/'+calendar_id,
+        url: '../new/' + calendar_id,
         cache: false
     })
             .done(function(html)
             {
                 var new_data = $('#eventAddForm', html);
                 $('#eventAddForm').replaceWith(new_data);
-                   applyEditDialogUI();
+                applyEditDialogUI();
             });
 }
 

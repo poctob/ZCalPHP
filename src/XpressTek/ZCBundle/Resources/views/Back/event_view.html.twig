@@ -6,6 +6,9 @@
 
 {% block body %}
     {{ parent() }}
+    <script>
+            var calendar_id = {{calendar.id}};
+    </script>
     <div id='eventViewSection' title="Event Details">
         <div class="roomyDiv">
             Calendar: {{ calendar.name }}
@@ -33,13 +36,16 @@
         {% endif %}
         <div class="roomyDiv">
             Active for these days: <ul>
-             {% for day in event.weekdayMask %}
-                <li>{{ day }}</li>
-             {% endfor %}
-             </ul>
-            
+                {% for day in event.weekdayMask %}
+                    <li>{{ day }}</li>
+                    {% endfor %}
+            </ul>
+
         </div>
     {% endblock %}
 
     {% block sidebar %}
+        <div class="roomyDiv">
+            <button id="backToEventList" type="button">Back to Events List</button>  
+        </div>
     {% endblock %}

@@ -92,9 +92,8 @@ class Event {
      * @ORM\Column(name="weekday_mask", type="integer")
      */
     private $weekdayMask;
-    
-    public function cloneEntity(Event $source)
-    {
+
+    public function cloneEntity(Event $source) {
         $this->calendar = $source->calendar;
         $this->title = $source->title;
         $this->validFrom = $source->validFrom;
@@ -114,6 +113,16 @@ class Event {
         return $this->id;
     }
 
+    /**
+     * Set id
+     * 
+     * @param integer $id
+     * @return Calendar
+     */
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * Set title
@@ -252,7 +261,7 @@ class Event {
         if (is_array($weekdayMask)) {
             $mask = 0;
             foreach ($weekdayMask as $day => $value) {
-                if (in_array($day, $this->weekDays) && $value==1) {
+                if (in_array($day, $this->weekDays) && $value == 1) {
                     $mask = $mask | $this->weekDays[$day];
                 }
             }
@@ -272,36 +281,76 @@ class Event {
     public function getWeekdayMaskRaw() {
         return $this->weekdayMask;
     }
-    
+
     /**
      *  @return array 
      */
-    public function getWeekdayMask()
-    {
+    public function getWeekdayMask() {
         $retval = array();
-        foreach($this->weekDays as $day => $mask)
-        {
-            $value = $this->weekdayMask & $mask;
-            if($value == $this->weekdayMask)
-            {
-                array_push($retval, $day);
+
+        if ($this->weekdayMask == $this->weekDays['EveryDay']) {
+            array_push($retval, 'EveryDay');
+        } else {
+            foreach ($this->weekDays as $day => $mask) {
+                if ($day != 'EveryDay') {
+                    $value = $this->weekdayMask & $mask;
+                    if ($value > 0) {
+                        array_push($retval, $day);
+                    }
+                }
             }
         }
         return $retval;
     }
-    
-    public function getWeekDayKeys()
-    {
+
+    public function isOnMonday() {
+        return $this->isOnDay('Monday');
+    }
+
+    public function isOnTuesday() {
+        return $this->isOnDay('Tuesday');
+    }
+
+    public function isOnWednesday() {
+        return $this->isOnDay('Wednesday');
+    }
+
+    public function isOnThursday() {
+        return $this->isOnDay('Thursday');
+    }
+
+    public function isOnFriday() {
+        return $this->isOnDay('Friday');
+    }
+
+    public function isOnSaturday() {
+        return $this->isOnDay('Saturday');
+    }
+
+    public function isOnSunday() {
+        return $this->isOnDay('Sunday');
+    }
+
+    public function isEveryDay() {
+        return $this->weekdayMask == $this->weekDays['EveryDay'];
+    }
+
+    private function isOnDay($day) {
+        $mask = $this->weekDays[$day];
+        $value = $this->weekdayMask & $mask;
+
+        return $value > 0;
+    }
+
+    public function getWeekDayKeys() {
         return $this->weekDays;
     }
-    
-    public function setCalendar($calendar)
-    {
-        $this->calendar=$calendar;
+
+    public function setCalendar($calendar) {
+        $this->calendar = $calendar;
     }
-    
-    public function getCalendar()
-    {
+
+    public function getCalendar() {
         return $this->calendar;
     }
 

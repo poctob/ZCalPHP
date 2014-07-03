@@ -71,6 +71,26 @@ class EventController extends Controller {
     }
     
      /**
+     * Edits event to the database
+     * @param Integer $event_id Id of the evenet
+     * @param \Symfony\Component\HttpFoundation\Request $request Form data
+     * @return type Rendered page.
+     */
+    public function editAction($event_id, Request $request) {
+        
+        $em = $this->getDoctrine()->getManager();        
+        $event = $em->getRepository('XpressTekZCBundle:Event')
+                            ->find($event_id);      
+        $event_form = $this->createForm(new EventType(), $event);
+        $calendar=$event->getCalendar();
+        $this->processRequest($calendar->getId(), $request);
+
+        return $this->render
+                        ('XpressTekZCBundle:Back:event_edit.html.twig', array('event_form' => $event_form->createView(),
+                    'calendar_id' => $calendar->getId(), 'event' => $event));
+    }
+    
+     /**
      * Pulls event from the database and displays it
      * @param Event $event_id Id of the event.
      */
@@ -106,6 +126,10 @@ class EventController extends Controller {
                 $em = $this->getDoctrine()->getManager();
                 
                 $event_id = $event->getId();
+                
+                $calendar = $em->find('XpressTekZCBundle:Calendar', 
+                            $calendar_id);
+                $event->setCalendar($calendar);
                 if ($event_id > 0) {
                     $new_event = $em->getRepository('XpressTekZCBundle:Event')
                             ->find($event_id);
@@ -114,12 +138,7 @@ class EventController extends Controller {
                     $this->get('session')->getFlashBag()->add(
                             'notice', 'Item Saved');
                 } else {
-                    
-                    $calendar = $em->find('XpressTekZCBundle:Calendar', 
-                            $calendar_id);
-                    
-                    $calendar->addEvent($event);
-                    $event->setCalendar($calendar);
+                    $calendar->addEvent($event);                    
                     $em->persist($event);
                     $this->get('session')->getFlashBag()->add(
                             'notice', 'Item Created');
